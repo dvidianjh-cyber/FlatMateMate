@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1] - 2026-05-28
+
+### Fixed
+- RestDB split and member update operations now properly merge existing data before PUT requests
+- Split payment status toggles now work correctly with RestDB backend by including all required fields
+
 ## [0.5.0] - 2026-05-21
 
 ### Added

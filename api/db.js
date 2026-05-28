@@ -149,9 +149,16 @@ export const db = {
 
   async updateMember(memberId, updateData) {
     if (isRestDB) {
+      // Fetch existing member first to merge with update data
+      const existingMember = await this.getMember(memberId);
+      if (!existingMember) {
+        return null;
+      }
+      // Merge update data with existing member to include all required fields
+      const mergedData = { ...existingMember, ...updateData };
       return await restdbFetch(`/members/${memberId}`, {
         method: 'PUT',
-        body: JSON.stringify(updateData)
+        body: JSON.stringify(mergedData)
       });
     } else {
       const data = readLocalDb();
@@ -270,9 +277,16 @@ export const db = {
 
   async updateSplit(splitId, updateData) {
     if (isRestDB) {
+      // Fetch existing split first to merge with update data
+      const existingSplit = await this.getSplit(splitId);
+      if (!existingSplit) {
+        return null;
+      }
+      // Merge update data with existing split to include all required fields
+      const mergedData = { ...existingSplit, ...updateData };
       return await restdbFetch(`/splits/${splitId}`, {
         method: 'PUT',
-        body: JSON.stringify(updateData)
+        body: JSON.stringify(mergedData)
       });
     } else {
       const data = readLocalDb();
